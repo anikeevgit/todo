@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/logins.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+
+        <form name="login-form" class="login-form" action="" method="post">
+
+            <div class="header">
+                <h1>Авторизация</h1>
+                <span>Введите ваши регистрационные данные для входа в ваш личный кабинет. </span>
+            </div>
+
+            <div class="content">
+                <input name="username" type="text" class="input username" value="Логин" onfocus="this.value=''" />
+                <input name="password" type="password" class="input password" value="Пароль" onfocus="this.value=''" />
+            </div>
+
+            <div class="footer">
+                <input id='logIn' type="submit" name="submit" value="ВОЙТИ" class="button" />
+                <a href="/login/registration" type="button">Регистрации</a>
+            </div>
+
+        </form>
+    </div>
+    <div class="gradient "></div>
+    <script src=" https://code.jquery.com/jquery-2.2.4.min.js "></script>
+    <script type="text/javascript ">
+        $(document).ready(function() {
+            $(".username ").focus(function() {
+                $(".user-icon ").css("left ", "-48px ");
+            });
+            $(".username ").blur(function() {
+                $(".user-icon ").css("left ", "0px ");
+            });
+
+            $(".password ").focus(function() {
+                $(".pass-icon ").css("left ", "-48px ");
+            });
+            $(".password ").blur(function() {
+                $(".pass-icon ").css("left ", "0px ");
+            });
+        });
+        $('#logIn').on('click', function(e) {
+            e.preventDefault()
+            $.ajax({
+                data: $('.login-form').serialize(),
+                url: "/login/login",
+                method: 'POST',
+                success: function(e) {
+                    alert(e.message)
+                    window.location.href = '/target'
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="/create.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO LIST</title>
+</head>
+
+<body>
+    <div class="container" align="center">
+        <row>
+            <h1 class="text-center">Задачи</h1>
+        </row>
+        <form id="getTarget" method="POST">
+            <input type="text" placeholder="Описание задачи" name="name" />
+            <input id="sendTarget" type="submit" />
+        </form>
+        <script src=" https://code.jquery.com/jquery-2.2.4.min.js "></script>
+        <script>
+            $("#sendTarget ").on('click', function(e) {
+                e.preventDefault()
+                $.ajax({
+                    data: $("#getTarget").serialize(),
+                    url: "/target/postTarget ",
+                    method: 'POST',
+                    success: function(e) {
+                        alert('Added')
+                        window.location.href = '/target'
+                    }
+                })
+            });
+        </script>
+    </div>
+</body>
+
+</html>

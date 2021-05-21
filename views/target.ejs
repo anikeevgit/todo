@@ -1,0 +1,85 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/target.css" rel="stylesheet" type="text/css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <row>
+        <h1>Список задач</h1>
+        <div id="alert"></div>
+        <div class="row" align="left">
+            <ul class="col-6 mx-auto">
+                <% for(let i=0;i<todos.length;i++){ %>
+                    <li id="task_<%= todos[i]._id %>">
+                        <p class="targetText">
+                            <%= todos[i].name %>
+                                <a class='editLink' data-target="<%= todos[i]._id %>">Изменить</a> |
+                                <a class='removeLink' data-target="<%= todos[i]._id %>">Удалить</a>
+                        </p>
+
+                    </li>
+                    <% } %>
+            </ul>
+            <form id="editTarget" align="center">
+                <input type="hidden" name="id">
+                <input type="text" class="imput-task-edit" name="name">
+                <button id="sendTarget">Редактировать</button>
+            </form>
+        </div>
+    </row>
+    <a href='/target/create'>Добавить задачу</a>
+    <script>
+        $(".removeLink").on("click", function(e) {
+            let id = $(this).data("target")
+            let elem = $("#task_" + id)
+            console.log(elem)
+            $.ajax({
+                url: '/target/delete',
+                method: 'POST',
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    $("#alert").show(700).text(data.message)
+                    setTimeout(function() {
+                        $("#alert").hide(700)
+                    }, 3000)
+                    $(elem).remove();
+                }
+            })
+        })
+        $(".editLink").on('click', function(e) {
+            e.preventDefault()
+            let id = $(this).data("target")
+            let valueEditTask = $(`#task_${id} .targetText`)
+            let imputForEdit = $(".imput-task-edit")
+            let inputId = $("#editTarget input[name=id]").val(id)
+            imputForEdit.val(valueEditTask.text())
+        })
+        $("#sendTarget").on("click", function(e) {
+            e.preventDefault()
+
+            if ($(".imput-task-edit").val() == '') {
+                alert("Введите что нибудь")
+                return false
+            }
+            $.ajax({
+                url: "/target/edit",
+                type: "POST",
+                data: $("#editTarget").serialize(),
+                success: function(data) {
+                    alert(data.message)
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

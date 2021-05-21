@@ -1,0 +1,26 @@
+h1 {
+    margin-top: 10rem;
+    color: pink;
+}
+
+form {
+    margin-bottom: 2rem;
+}
+
+ul {
+    padding-top: 20px;
+    color: pink;
+}
+
+li {
+    padding-left: 20px;
+}
+
+body {
+    background-color: black;
+    text-align: center;
+}
+
+a {
+    color: yellow;
+}
