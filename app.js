@@ -35,10 +35,11 @@ app.use((req, res, next) => {
     res.status(404).send('Page not found')
 })
 
-mongoose.connect('mongodb://localhost:27017/todo', {
+mongoose.connect('mongodb+srv://dmitry:12345qwe@cluster0.fvtnv.mongodb.net/todo', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 }, (err) => {
     if (!err) {
         console.log('MongoDB Connection Succeeded.')
