@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     res.status(404).send('Page not found')
 })
 
-mongoose.connect('mongodb+srv://dmitry:12345qwe@cluster0.fvtnv.mongodb.net/todo', {
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.fvtnv.mongodb.net/todo', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
